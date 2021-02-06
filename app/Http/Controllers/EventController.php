@@ -45,6 +45,18 @@ class EventController extends Controller
 
     public function withdraw($origin,$amount)
     {
-        $account = Account::findOrFail('origin');
+        $account = Account::firstOrCreate([
+            'id' => $origin
+        ]);
+
+        $account->balance -= $amount;
+        $account->save();
+
+        return response()->json([
+            'origin' => [ 
+                'id' => $account->id,
+                'balance' => $account->balance
+            ]
+            ], 201);
     }
 }
