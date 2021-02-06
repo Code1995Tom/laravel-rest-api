@@ -7,10 +7,10 @@ use App\Models\Account;
 
 class BalanceController extends Controller
 {
-    public function show(Request $request)
+    public function show($id)
     {
-        $accountId = $request->input('account_Id');
-        $account = Account::findOrFail($accountId);
+        //$accountId = $request->input('id');
+        $account = Account::findOrFail($id);
         return $account->balance;
     }
 }
